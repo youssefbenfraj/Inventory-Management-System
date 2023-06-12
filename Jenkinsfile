@@ -3,7 +3,7 @@ pipeline{
   stages{
     stage('build spring'){
       steps{
-        sh 'docker build -t spring-app airbus-management-spring/Dockerfile'
+        sh 'docker build -t spring-app Inventory-Management-System/airbus-management-spring/Dockerfile'
       }
     }
      stage('deploy spring'){
