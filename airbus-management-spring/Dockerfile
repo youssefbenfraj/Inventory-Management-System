@@ -19,12 +19,9 @@ RUN mvn package -DskipTests
 # Use a lightweight base image for running the application
 FROM openjdk:11-jre-slim
 
-# Set the working directory inside the container
-WORKDIR /app
-
 # Copy the JAR file from the build stage to the container
-COPY --from=build /app/target/my-application.jar .
+COPY --from=build /app/target/*.jar /app.jar
 
-EXPOSE 8080
+EXPOSE 8075
 # Specify the command to run your application
-CMD ["java", "-jar", "my-application.jar"]
+CMD ["java", "-jar", "app.jar"]
