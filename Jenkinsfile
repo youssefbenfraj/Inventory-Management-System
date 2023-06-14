@@ -11,15 +11,21 @@ pipeline{
           sh 'docker build -t angular-app ./AirbusInventory/'
         }
       }
+     stage('create network'){
+      steps{
+              sh 'docker network create AirbusNetwork || true'
+      }
+    }
      stage('deploy spring'){
       steps {
-        sh 'docker run -d -p 8080:80 --name SpringAirbus spring-app'
+        sh 'docker run -d --network AirbusNetwork -p 8080:8080 --name AirbusSpring spring-app'
       }
     }
     stage('deploy angular'){
       steps{
-        sh ' docker run -d -p 4200:80 --name AngularAirbus angular-app'
+        sh ' docker run -d --network AirbusNetwork -p 4200:80 --name AirbusAngular angular-app'
       }
     }
+    
   }
 }
