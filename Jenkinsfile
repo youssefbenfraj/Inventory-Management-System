@@ -1,6 +1,14 @@
 pipeline{
   agent any
   stages{
+    stage('delete old containers'){
+      steps{
+        sh 'docker stop AirbusSpring || true'
+        sh 'docker rm AirbusSpring || true'
+        sh 'docker stop AirbusAngular || true'
+        sh 'docker rm AirbusAngular || true'
+      }
+    }
     stage('build spring'){
       steps{
         sh 'docker build -t spring-app ./airbus-management-spring/'
